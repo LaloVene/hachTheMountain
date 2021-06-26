@@ -131,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `videos` (
 
 DROP TABLE IF EXISTS `visited`;
 CREATE TABLE IF NOT EXISTS `visited` (
-  `IdRec` int(11) NOT NULL AUTO_INCREMENT,
+  `IdRec` int(11) NOT NULL,
   `Id_Topic` int(11) NOT NULL,
   `User_Username` varchar(20) NOT NULL,
   PRIMARY KEY (`IdRec`,`Id_Topic`,`User_Username`),

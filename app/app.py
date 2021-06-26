@@ -18,20 +18,25 @@ def main():
     return "Okay",200
     #return render_template('index.html', title="learn2code", url=os.getenv("URL"))
 
-@app.route("/languages")
+@app.route("/languages",methods=["POST"])
 def languages():
     if request.method == 'POST':
-        id = request.form.get('id')
-        name = request.form.get('name')
-        pic_url = request.form.get('pic_url')
-        desc = request.form.get('desc')
-        example = request.form.get('example')
-        db = get_db()
-        error = None
+        try:
+            body = request.get_json()
+        except:
+            return jsonify({"status": "bad", "message": "no information provided"}), 401
 
-        if not id:
-            error = 'Id is required.'
-        elif not name:
+        try:
+            name = str(body['name'])
+            pic_url = str(body['pic_url'])
+            desc = str(body['desc'])
+            example = str(body['example'])
+            db = get_db()
+            error = None
+        except:
+            return jsonify({"status": "bad", "message": "missing data"}), 400
+
+        if not name:
             error = 'Name is required.'
         elif not pic_url:
             error = 'Picture url is required.'
@@ -39,85 +44,208 @@ def languages():
             error = 'Description id is required'
         elif not example:
             error = 'Example id is required'
-        elif db.execute(
-            'SELECT IdLanguages FROM topic WHERE IdLanguages = ?', (id,)
-        ).fetchone() is not None:
-            error = f"The Language {id} is already registered."
 
         if error is None:
             db.execute(
-                'INSERT INTO languages (IdLanguages, Name, Pic_url, Desc, Example) VALUES (?, ?, ?, ?, ?)',
-                (id,name,pic_url,desc,example)
+                'INSERT INTO languages (Name, Pic_url, Desc, Example) VALUES (?, ?, ?, ?)',
+                (name,pic_url,desc,example)
             )
             db.commit()
-            return f"The Language {id} created successfully"
+            return f"The Language {name} created successfully"
         else:
             return error, 418
 
     return "Login Page not yet implemented", 501
 
-@app.route("/topics")
+@app.route("/topics",methods=["POST"])
 def topics():
     if request.method == 'POST':
-        id = request.form.get('id')
-        name = request.form.get('name')
-        pic_url = request.form.get('pic_url')
-        id_lang = request.form.get('id_lang')
-        db = get_db()
-        error = None
+        try:
+            body = request.get_json()
+        except:
+            return jsonify({"status": "bad", "message": "no information provided"}), 401
 
-        if not id:
-            error = 'Id is required.'
-        elif not name:
+        try:
+            name = str(body['name'])
+            pic_url = str(body['pic_url'])
+            id_lang = str(body['id_lang'])
+            db = get_db()
+            error = None
+        except:
+            return jsonify({"status": "bad", "message": "missing data"}), 400
+
+        if not name:
             error = 'Name is required.'
         elif not pic_url:
             error = 'Picture url is required.'
         elif not id_lang:
             error = 'Language id is required'
-        elif db.execute(
+        """elif db.execute(
             'SELECT idTopic FROM topic WHERE idTopic = ?', (id,)
         ).fetchone() is not None:
-            error = f"The topic {id} is already registered."
+            error = f"The topic {id} is already registered."""
 
         if error is None:
             db.execute(
-                'INSERT INTO topic (idTopic, Name, Pic_url, Id_Languages) VALUES (?, ?, ? ,?)',
-                (id,name,pic_url,id_lang)
+                'INSERT INTO topic (Name, Pic_url, Id_Languages) VALUES (?, ?, ?)',
+                (name,pic_url,id_lang)
             )
             db.commit()
-            return f"The topic {id} created successfully"
+            return f"The topic {name} created successfully"
         else:
             return error, 418
 
     return "Login Page not yet implemented", 501
 
-@app.route("/resources")
+@app.route("/resources",methods=["POST"])
 def resources():
-    # TODO return render_template('index.html', title="main page", url=os.getenv("URL"))
-    #SELECT * FROM (TABLA) WHERE id = id
-    # ? html, title?
-    return ""
+    if request.method == 'POST':
+        try:
+            body = request.get_json()
+        except:
+            return jsonify({"status": "bad", "message": "no information provided"}), 401
 
-@app.route("/url")
+        try:
+            difficulty = str(body['difficulty'])
+            title = str(body['title'])
+            idTopic = str(body['idTopic'])
+            db = get_db()
+            error = None
+        except:
+            return jsonify({"status": "bad", "message": "missing data"}), 400
+
+        #if not id:
+        #    error = 'Id is required.'
+        if not difficulty:
+            error = 'Difficulty is required.'
+        elif not title:
+            error = 'Title is required.'
+        elif not idTopic:
+            error = 'idTopic id is required'
+
+        if error is None:
+            db.execute(
+                'INSERT INTO rec (Difficulty, Title, Id_Topic) VALUES (?, ?, ?)',
+                (difficulty,title,idTopic)
+            )
+            db.commit()
+            return f"The resource {title} created successfully"
+        else:
+            return error, 418
+
+    return "Login Page not yet implemented", 501
+
+@app.route("/url",methods=["POST"])
 def url():
-    # TODO return render_template('index.html', title="main page", url=os.getenv("URL"))
-    #SELECT * FROM (TABLA) WHERE id = id
-    # ? html, title?
-    return ""
+    if request.method == 'POST':
+        try:
+            body = request.get_json()
+        except:
+            return jsonify({"status": "bad", "message": "no information provided"}), 401
 
-@app.route("/videos")
+        try:
+            name = str(body['name'])
+            url = str(body['url'])
+            idRec = str(body['idRec'])
+            db = get_db()
+            error = None
+        except:
+            return jsonify({"status": "bad", "message": "missing data"}), 400
+
+        #if not id:
+        #    error = 'Id is required.'
+        if not name:
+            error = 'Name is required.'
+        elif not url:
+            error = 'Url is required.'
+        elif not idRec:
+            error = 'Resource id is required'
+
+        if error is None:
+            db.execute(
+                'INSERT INTO url (Name, Url, Id_Rec) VALUES (?, ?, ?)',
+                (name,url,idRec)
+            )
+            db.commit()
+            return f"The url {name} created successfully"
+        else:
+            return error, 418
+
+    return "Login Page not yet implemented", 501
+
+
+@app.route("/videos",methods=["POST"])
 def videos():
-    # TODO return render_template('index.html', title="main page", url=os.getenv("URL"))
-    #SELECT * FROM (TABLA) WHERE id = id
-    # ? html, title?
-    return ""
+    if request.method == 'POST':
+        try:
+            body = request.get_json()
+        except:
+            return jsonify({"status": "bad", "message": "no information provided"}), 401
 
-@app.route("/visited")
+        try:
+            name = str(body['name'])
+            url = str(body['url'])
+            idRec = str(body['idRec'])
+            db = get_db()
+            error = None
+        except:
+            return jsonify({"status": "bad", "message": "missing data"}), 400
+
+        if not name:
+            error = 'Name is required.'
+        elif not url:
+            error = 'Url is required.'
+        elif not idRec:
+            error = 'Resource is required'
+
+        if error is None:
+            db.execute(
+                'INSERT INTO videos (Name, Url, Id_Rec) VALUES (?, ?, ?)',
+                (name,url,idRec)
+            )
+            db.commit()
+            return f"The video {name} created successfully"
+        else:
+            return error, 418
+
+    return "Login Page not yet implemented", 501
+
+@app.route("/visited",methods=["POST"])
 def visited():
-    # TODO return render_template('index.html', title="main page", url=os.getenv("URL"))
-    #SELECT * FROM (TABLA) WHERE id = id
-    # ? html, title?
-    return ""
+    if request.method == 'POST':
+        try:
+            body = request.get_json()
+        except:
+            return jsonify({"status": "bad", "message": "no information provided"}), 401
+
+        try:
+            idRec = str(body['idRec'])
+            idTopic = str(body['idTopic'])
+            username = str(body['username'])
+            db = get_db()
+            error = None
+        except:
+            return jsonify({"status": "bad", "message": "missing data"}), 400
+        
+
+        if not idRec:
+            error = 'Resource id is required.'
+        elif not idTopic:
+            error = 'Topic id is required.'
+        elif not username:
+            error = 'Username is required'
+
+        if error is None:
+            db.execute(
+                'INSERT INTO visited (IdRec, Id_Topic, User_Username) VALUES (?, ?, ?)',
+                (idRec,idTopic,username)
+            )
+            db.commit()
+            return f"The visited register from the user {username} created successfully"
+        else:
+            return error, 418
+
+    return "Login Page not yet implemented", 501
 
 
 @app.route("/set_language", methods=["POST"])
@@ -135,7 +263,7 @@ def set_language():
         status = 1
     except:
         return jsonify({"status": "bad", "message": "missing data"}), 400
-    return jsonify({"status": "ok", "name": name}), 200
+    return jsonify({"status": "ok", "message":"", "name": name}), 200
 
 @app.route("/sign-in", methods=["POST"])
 def sign_in():
@@ -191,7 +319,7 @@ def log_in():
             
     # TODO return render_template('index.html', title="main page", url=os.getenv("URL"))
     # ? html, title?
-    return ""
+    return "Ok",200
 
 # ! health directory !
 @app.route("/health")
