@@ -1,3 +1,4 @@
+import { ExampleService } from './../../services/example/example.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
@@ -16,11 +17,26 @@ export class SignInPage implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private exampleService: ExampleService,
   ) {}
 
   ngOnInit() {
     this.createNewForm();
+    this.exampleFunction();
+  }
+
+  // Doens´t work beacuase of CORS, I don´t think that will happen with ours
+  exampleFunction() {
+    // I pass it Hola as an example of what you could use it for
+    this.exampleService.workingOne('hola!')
+      .subscribe((res) => {
+        // Normal behavior
+        console.log(res);
+      }, (err) => {
+        // In case there is an error (Optional)
+        console.log('ERROR:', err)
+      });
   }
 
   createNewForm() {
