@@ -1,0 +1,17 @@
+
+<div class="group">
+  <input class='form-input' (ngModelChange)="onInputChange()" [type]="type" [formControlName]="formControlName"
+    [pattern]="pattern">
+  <ion-label
+    [class]="this.formGroup.get(this.formControlName)?.value?.length !== 0 ? 'shrink form-input-label': 'form-input-label'">
+    {{label}}</ion-label>
+</div>
+
+
+<ion-badge class="validator" color="danger"
+  *ngIf="formGroup.get(formControlName).hasError('required') && formSubmitted">
+  *campo requerido
+</ion-badge>
+<ion-badge class="validator" color="danger" *ngIf="formGroup.get(formControlName).hasError('pattern') && formSubmitted">
+  *no valido
+</ion-badge>
