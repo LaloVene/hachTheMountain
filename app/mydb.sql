@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 26-06-2021 a las 15:16:30
+-- Tiempo de generación: 26-06-2021 a las 21:47:20
 -- Versión del servidor: 5.7.31
 -- Versión de PHP: 7.3.21
 
@@ -31,13 +31,20 @@ USE `mydb`;
 
 DROP TABLE IF EXISTS `languages`;
 CREATE TABLE IF NOT EXISTS `languages` (
-  `IdLanguages` int(11) NOT NULL,
+  `IdLanguages` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(45) NOT NULL,
   `Pic_url` varchar(45) DEFAULT NULL,
   `Desc` varchar(45) NOT NULL,
   `Example` varchar(45) NOT NULL,
   PRIMARY KEY (`IdLanguages`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `languages`
+--
+
+INSERT INTO `languages` (`IdLanguages`, `Name`, `Pic_url`, `Desc`, `Example`) VALUES
+(1, 'Python', 'x', 'X', 'x');
 
 -- --------------------------------------------------------
 
@@ -47,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `languages` (
 
 DROP TABLE IF EXISTS `rec`;
 CREATE TABLE IF NOT EXISTS `rec` (
-  `IdRec` int(11) NOT NULL,
+  `IdRec` int(11) NOT NULL AUTO_INCREMENT,
   `Difficulty` varchar(45) NOT NULL,
   `Title` varchar(45) NOT NULL,
   `Id_Topic` int(11) NOT NULL,
@@ -63,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `rec` (
 
 DROP TABLE IF EXISTS `topic`;
 CREATE TABLE IF NOT EXISTS `topic` (
-  `idTopic` int(11) NOT NULL,
+  `idTopic` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(45) DEFAULT NULL,
   `Pic_url` varchar(45) DEFAULT NULL,
   `Id_Languages` int(11) NOT NULL,
@@ -79,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `topic` (
 
 DROP TABLE IF EXISTS `url`;
 CREATE TABLE IF NOT EXISTS `url` (
-  `IdUrl` int(11) NOT NULL,
+  `IdUrl` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(45) NOT NULL,
   `Url` varchar(45) NOT NULL,
   `Id_Rec` int(11) NOT NULL,
@@ -108,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 DROP TABLE IF EXISTS `videos`;
 CREATE TABLE IF NOT EXISTS `videos` (
-  `IdVideos` int(11) NOT NULL,
+  `IdVideos` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(45) NOT NULL,
   `Url` varchar(45) NOT NULL,
   `Id_Rec` int(11) NOT NULL,
@@ -124,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `videos` (
 
 DROP TABLE IF EXISTS `visited`;
 CREATE TABLE IF NOT EXISTS `visited` (
-  `IdRec` int(11) NOT NULL,
+  `IdRec` int(11) NOT NULL AUTO_INCREMENT,
   `Id_Topic` int(11) NOT NULL,
   `User_Username` varchar(20) NOT NULL,
   PRIMARY KEY (`IdRec`,`Id_Topic`,`User_Username`),
