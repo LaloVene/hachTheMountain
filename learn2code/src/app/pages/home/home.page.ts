@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { LanguagePreviewComponent } from '../../components/language-preview/language-preview.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
-
 export class HomePage implements OnInit {
   public langs = [
     {
@@ -134,5 +135,18 @@ export class HomePage implements OnInit {
     },
   ];
 
+  constructor(private modalController: ModalController) {}
+
   ngOnInit() {}
+
+  async presentModal(language: any) {
+    const modal = await this.modalController.create({
+      component: LanguagePreviewComponent,
+      cssClass: 'my-custom-class',
+      componentProps: {
+        language: language,
+      },
+    });
+    return await modal.present();
+  }
 }
