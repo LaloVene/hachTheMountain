@@ -22,9 +22,14 @@ const routes: Routes = [
     loadChildren: () => import('./pages/language/language.module').then( m => m.LanguagePageModule)
   },
   {
+    path: 'resources/:id',
+    loadChildren: () => import('./pages/resources/resources.module').then( m => m.ResourcesPageModule)
+  },
+  {
     path: '**',
     redirectTo: 'home',
   },
+
 
 ];
 
