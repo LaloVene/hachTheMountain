@@ -1,0 +1,26 @@
+<!-- Header -->
+<ion-header>
+  <ion-toolbar style="--background: #2E3E5C; --color: white">
+
+    <!-- Title -->
+    <ion-title>Stock Producto</ion-title>
+
+    <!-- Close Button -->
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        <ion-icon style="font-size: x-large; color: white;" name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <img class="logo" [src]="language.img" alt="">
+    <h1>{{language.name}}</h1>
+    <p class="description">{{language.desc}}</p>
+  
+    <ion-button color="dark" (click)="navigateTo(language.id)">LEARN</ion-button>
+  </div>
+</ion-content>

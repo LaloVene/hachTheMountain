@@ -8,7 +8,7 @@
     <h2>Choose your path to start your adventure today</h2>
     <ion-row>
       <ion-col size="12" size-sm="6" size-lg="3" *ngFor="let lang of langs">
-        <ion-card class="card">
+        <ion-card class="card" (click)="presentModal(lang)">
           <ion-card-header>
             <ion-card-title>{{lang.name}}</ion-card-title>
           </ion-card-header>
