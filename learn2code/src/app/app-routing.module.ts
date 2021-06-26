@@ -18,9 +18,19 @@ const routes: Routes = [
       import('./pages/sign-in/sign-in.module').then((m) => m.SignInPageModule),
   },
   {
+    path: 'language/:id',
+    loadChildren: () => import('./pages/language/language.module').then( m => m.LanguagePageModule)
+  },
+  {
+    path: 'resources/:id',
+    loadChildren: () => import('./pages/resources/resources.module').then( m => m.ResourcesPageModule)
+  },
+  {
     path: '**',
     redirectTo: 'home',
   },
+
+
 ];
 
 @NgModule({
