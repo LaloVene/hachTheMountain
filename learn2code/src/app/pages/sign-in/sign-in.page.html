@@ -1,9 +1,46 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>sign-in</ion-title>
+    <ion-title>Learn2Code</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <div class="title">
+    <h1>Join the app</h1>
+  </div>
+  <div class="description">
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, veritatis optio quo eius, blanditiis nam et quae cumque sapiente, minima consequatur aut. Quod blanditiis facere, ut fugiat non vero ratione quasi repellat totam voluptates beatae a rem eligendi soluta! Assumenda exercitationem vitae distinctio magni harum tempora molestiae quaerat ex corporis!
+  </div>
+  <ion-row>
+    <ion-col class="col" size="12" size-md="6">
+      <form action="" *ngIf="registerForm" [formGroup]="registerForm">
+        <h2>Register</h2>
+        <div class="input">
+          <app-custom-input ngDefaultControl formControlName="username" [formGroup]="registerForm" type="username" label="Username" [formSubmitted]="registerFormSubmitted"></app-custom-input>
+        </div>
+        <div class="input">
+          <app-custom-input ngDefaultControl formControlName="password" [formGroup]="registerForm" type="password" label="Password" [formSubmitted]="registerFormSubmitted"></app-custom-input>
+        </div>
+
+        <ion-button class="form-button" color="dark" (click)="register()">Register</ion-button>
+      </form>
+    </ion-col>
+    <ion-col class="col" size="12" size-md="6">
+      <form action="" *ngIf="loginForm" [formGroup]="loginForm">
+        <h2>Login</h2>
+        <div class="input">
+          <app-custom-input ngDefaultControl formControlName="username" [formGroup]="loginForm" type="username"
+            label="Username" [formSubmitted]="loginFormSubmitted"></app-custom-input>
+        </div>
+        <div class="input">
+          <app-custom-input ngDefaultControl formControlName="password" [formGroup]="loginForm" type="password"
+            label="Password" [formSubmitted]="loginFormSubmitted"></app-custom-input>
+        </div>
+      
+        <ion-button class="form-button" color="primary" (click)="register()">Login</ion-button>
+      </form>
+    </ion-col>
+  </ion-row>
+
 
 </ion-content>
