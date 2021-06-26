@@ -1,3 +1,4 @@
+import { NavbarComponent } from './navbar/navbar.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -7,8 +8,8 @@ import { DiffPopoverComponent } from './diff-popover/diff-popover.component';
 
 
 @NgModule({
-  declarations: [CustomInputComponent, DiffPopoverComponent],
+  declarations: [CustomInputComponent, DiffPopoverComponent, NavbarComponent],
   imports: [CommonModule, IonicModule, FormsModule, ReactiveFormsModule],
-  exports: [CustomInputComponent, DiffPopoverComponent],
+  exports: [CustomInputComponent, DiffPopoverComponent, NavbarComponent],
 })
 export class ComponentsModule {}
