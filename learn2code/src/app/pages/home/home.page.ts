@@ -105,6 +105,34 @@ export class HomePage implements OnInit {
       desc: 'null',
     },
   ];
+  public teams = [
+    {
+      id: 1,
+      name: 'Carlos Moisés Chávez Jiménez',
+      img: 'https://wfmh.global/wp-content/uploads/2018/01/wfmh-logo.png',
+      desc: 'Computer Technologies student at Tecnólogio de Monterrey. He enjoys [tech-related]. In his free time, he likes to [non-tech related]. ',
+      gh: 'https://github.com/NoMolestar',
+      li: 'https://linkedin.com/in/moises-chavez-itesm/',
+    },
+    {
+      id: 2,
+      name: 'Charbel Breydy Torres',
+      img: 'https://wfmh.global/wp-content/uploads/2018/01/wfmh-logo.png',
+      desc: 'Robotics student at Universidad de las Américas Puebla. ',
+    },
+    {
+      id: 3,
+      name: 'Eduardo Venegas',
+      img: 'https://wfmh.global/wp-content/uploads/2018/01/wfmh-logo.png',
+      desc: 'Student at Tecnólogio de Monterrey.',
+    },
+    {
+      id: 4,
+      name: 'Ayana N',
+      img: 'https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg',
+      desc: 'Student at McMaster University.',
+    },
+  ];
 
   ngOnInit() {}
 }
