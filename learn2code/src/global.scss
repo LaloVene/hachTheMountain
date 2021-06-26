@@ -26,3 +26,7 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+.round-popover .popover-content {
+    border-radius: 1rem;
+}

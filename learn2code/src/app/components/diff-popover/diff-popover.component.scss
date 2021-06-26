@@ -1,0 +1,15 @@
+ion-list {
+    margin: 0;
+    padding: 0;
+}
+
+ion-item {
+    cursor: pointer;
+    &:hover {
+        --background: hsl(0, 0%, 90%);
+    }
+
+    ion-icon {
+        margin-right: 1rem;
+    }
+}
