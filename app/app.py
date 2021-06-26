@@ -1,7 +1,7 @@
-from flask import Flask, render_template, send_from_directory, request
+from flask import Flask, render_template, send_from_directory, request, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
-from app.db import get_db
-from . import db
+from db import get_db
+import db
 import os
 
 # Flask uses load dotenv by default
@@ -32,10 +32,29 @@ def topics():
 @app.route("/resources")
 def resources():
     # TODO return render_template('index.html', title="main page", url=os.getenv("URL"))
+    SELECT * FROM (TABLA) WHERE id = id
     # ? html, title?
     return ""
 
-@app.route("/sign-in", methods["POST"])
+
+@app.route("/set_language", methods=["POST"])
+def set_language():
+    # TODO return render_template('index.html', title="main page", url=os.getenv("URL"))
+    # ? html, title?
+    try:
+        body = request.get_json()
+    except:
+        return jsonify({"status": "bad", "message": "no information provided"}), 401
+
+    try:
+        name = str(body['name'])
+        icon = str(body['icon'])
+        status = 1
+    except:
+        return jsonify({"status": "bad", "message": "missing data"}), 400
+    return jsonify({"status": "ok", "name": name}), 200
+
+@app.route("/sign-in", methods=["POST"])
 def sign_in():
     if request.method == "POST":
         username = request.form.get("Username")
@@ -65,7 +84,7 @@ def sign_in():
     # ? html, title?
     return ""
 
-@app.route("/log-in", methods["POST"])
+@app.route("/log-in", methods=["POST"])
 def log_in():
     if request.method == "POST":
         username = request.form.get("Username")
@@ -94,4 +113,4 @@ def log_in():
 # ! health directory !
 @app.route("/health")
 def health():
-    return ""
+    return 'OK', 200
