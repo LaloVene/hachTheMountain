@@ -1,6 +1,8 @@
+import { ExampleService } from './../../services/example/example.service';
 import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { DiffPopoverComponent } from './../../components/diff-popover/diff-popover.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-language',
@@ -8,6 +10,8 @@ import { DiffPopoverComponent } from './../../components/diff-popover/diff-popov
   styleUrls: ['./language.page.scss'],
 })
 export class LanguagePage implements OnInit {
+  language_id: number;
+  language: any;
   public topics = [
     {
       id: 1,
@@ -32,10 +36,32 @@ export class LanguagePage implements OnInit {
   ];
 
   constructor(
-    public popoverController: PopoverController
-  ) {}
+    public popoverController: PopoverController,
+    private exampleService: ExampleService,
+    private route: ActivatedRoute
+  ) {
+    this.language_id = parseInt(this.route.snapshot.paramMap.get('id'));
+    this.getTopics(this.language_id);
+    this.getLanguages();
+  }
 
   ngOnInit() {}
+
+  getTopics(id: number) {
+    let body = {
+      idTopic: id,
+    };
+    this.exampleService.getTopics(body).subscribe((data) => {
+      this.topics = data.topics;
+    });
+  }
+  private getLanguages() {
+    this.exampleService.getLanguages().subscribe((data) => {
+      this.language = data.languages.find(
+        (lang) => lang.IdLanguages == this.language_id
+      );
+    });
+  }
 
   async presentPopover(ev: any, id: number) {
     const popover = await this.popoverController.create({

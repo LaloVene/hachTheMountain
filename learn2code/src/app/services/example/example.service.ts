@@ -40,4 +40,12 @@ export class ExampleService {
   getLanguages(): Observable<any> {
     return this.http.get<any>(`${this.origin}/get-languages`);
   }
+
+  getTopics(queryParams: any): Observable<any> {
+    return this.http.post<any>(`${this.origin}/get-topics`, queryParams);
+  }
+
+  getResources(queryParams: any): Observable<any> {
+    return this.http.post<any>(`${this.origin}/get-resources`, queryParams);
+  }
 }

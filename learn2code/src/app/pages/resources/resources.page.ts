@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ExampleService } from './../../services/example/example.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-resources',
@@ -6,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./resources.page.scss'],
 })
 export class ResourcesPage implements OnInit {
+  language_id: number;
+  language: any;
   public resources = [
     {
       id: 1,
@@ -67,7 +71,21 @@ export class ResourcesPage implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor(
+    private exampleService: ExampleService,
+    private route: ActivatedRoute
+  ) {
+    this.language_id = parseInt(this.route.snapshot.paramMap.get('id'));
+    this.getLanguages();
+  }
 
   ngOnInit() {}
+
+  private getLanguages() {
+    this.exampleService.getLanguages().subscribe((data) => {
+      this.language = data.languages.find(
+        (lang) => lang.IdLanguages == this.language_id
+      );
+    });
+  }
 }

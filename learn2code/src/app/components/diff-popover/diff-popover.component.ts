@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-diff-popover',
@@ -6,9 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./diff-popover.component.scss'],
 })
 export class DiffPopoverComponent implements OnInit {
-
-  constructor() { }
+  constructor(private nav: NavController) {}
 
   ngOnInit() {}
 
+  public navigateTo(url: string) {
+    this.nav.navigateRoot(url);
+  }
 }

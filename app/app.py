@@ -446,7 +446,6 @@ def get_resource():
 
     try:
         this_id = int(body["Id_Rec"])
-        status = 1
     except:
         return jsonify({"status": "bad", "message": "missing data"}), 400
 
