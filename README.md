@@ -1,3 +1,6 @@
+# Learn2Code
+https://learn-2-code.web.app
+
 ## How to run
 `npm install -g @ionic/cli`
 
