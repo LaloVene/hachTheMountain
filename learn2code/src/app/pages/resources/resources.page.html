@@ -10,12 +10,23 @@
   <section class="topics">
     <h2>Topics</h2>
     <ion-row>
-      <ion-col size="6" *ngFor="let res of resources">
+      <ion-col size="12" size-md="6" *ngFor="let res of resources">
         <h2>{{res.title}}</h2>
         <ion-list>
           <ion-item *ngFor="let url of res.urls" [routerLink]="url.url">
             {{url.name}}
           </ion-item>
+        </ion-list>
+        <ion-list>
+          <div *ngFor="let video of res.videos">
+            <h2>{{video.name}}</h2>
+            <youtube-player
+              [videoId]="video.url" 
+              suggestedQuality="highres"
+              [height]="250"
+              [width]="450">
+            </youtube-player>
+          </div>
         </ion-list>
       </ion-col>
     </ion-row>

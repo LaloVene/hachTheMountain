@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { ResourcesPageRoutingModule } from './resources-routing.module';
 
 import { ResourcesPage } from './resources.page';
+import { YouTubePlayerModule } from '@angular/youtube-player';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { ResourcesPage } from './resources.page';
     IonicModule,
     ResourcesPageRoutingModule,
     ComponentsModule,
+    YouTubePlayerModule,
   ],
-  declarations: [ResourcesPage]
+  declarations: [ResourcesPage],
 })
 export class ResourcesPageModule {}

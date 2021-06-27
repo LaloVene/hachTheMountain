@@ -43,3 +43,12 @@
         }
     }
 }
+
+.video  {
+  background: none;
+  box-shadow: none;
+  ion-card-content {
+    display: flex;
+    justify-content: center;
+  }
+}
