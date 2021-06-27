@@ -102,13 +102,13 @@
   }
 }
 
-.topics {
-  padding: 1rem;
-}
 
 .card {
-  min-height: 80%;
-  max-height: 80%;
+  min-height: 70%;
+  max-height: 70%;
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-bottom: 2%;
   border-radius: 1rem;
   box-shadow: 0 0.3px 2.2px rgba(0, 0, 0, 0.02),
       0 0.8px 5.3px rgba(0, 0, 0, 0.028),
@@ -121,9 +121,8 @@
       display: flex;
       align-items: center;
       img {
-
-          max-height: 100px;
-          min-height: 100px;
+          max-height: 60px;
+          min-height: 60px;
           margin: 0 auto;
           object-fit: contain;
       }
@@ -140,6 +139,7 @@
   ion-card-subtitle {
     margin: 0 auto;
     width: 100%;
+    font-size: 75%;
     text-align: center;
     padding: 30px;
     padding-bottom: 100px;
