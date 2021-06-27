@@ -1,0 +1,10 @@
+{
+  "/posts": {
+    "target": "https://hack-the-mountain.herokuapp.com/",
+    "secure": true,
+    "pathRewrite": {
+    "^/posts": ""
+  },
+    "changeOrigin": true
+  }
+}

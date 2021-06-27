@@ -29,14 +29,16 @@ export class SignInPage implements OnInit {
   // Doens´t work beacuase of CORS, I don´t think that will happen with ours
   exampleFunction() {
     // I pass it Hola as an example of what you could use it for
-    this.exampleService.workingOne('hola!')
-      .subscribe((res) => {
+    this.exampleService.checkHealth().subscribe(
+      (res) => {
         // Normal behavior
         console.log(res);
-      }, (err) => {
+      },
+      (err) => {
         // In case there is an error (Optional)
-        console.log('ERROR:', err)
-      });
+        console.log('ERROR:', err);
+      }
+    );
   }
 
   createNewForm() {

@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ExampleService {
-  private baseUrl = 'https://localhost:5000/';
+  params = {};
+  headers = new HttpHeaders({
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+  });
+  private baseUrl = 'https://hack-the-mountain.herokuapp.com';
   constructor(private http: HttpClient) {}
 
   // GET -> Get all the links for a project specified by the id_project.
@@ -33,10 +39,9 @@ export class ExampleService {
   }
 
   // EXAMPLE I call it in sign in page and console log it
-  workingOne(exampleParam: string): Observable<any> {
-    console.log(exampleParam);
-    return this.http.get<any>(
-      'http://petstore-demo-endpoint.execute-api.com/petstore/pets'
-    );
+  checkHealth(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/health`, {
+      headers: this.headers,
+    });
   }
 }

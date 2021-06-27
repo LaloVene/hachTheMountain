@@ -1,6 +1,7 @@
 import os
 import db
 from flask import Flask, render_template, send_from_directory, request, jsonify
+from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 from db import get_db
 import jwt
@@ -8,6 +9,7 @@ import jwt
 
 # Flask uses load dotenv by default
 app = Flask(__name__)
+CORS(app)
 
 app.config["DATABASE"] = os.path.join(os.getcwd(), "flask.sqlite")
 
