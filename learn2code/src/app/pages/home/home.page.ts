@@ -1,3 +1,4 @@
+import { ExampleService } from './../../services/example/example.service';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { LanguagePreviewComponent } from '../../components/language-preview/language-preview.component';
@@ -8,7 +9,7 @@ import { LanguagePreviewComponent } from '../../components/language-preview/lang
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-  public langs = [
+  public langs: any = [
     {
       id: 1,
       name: 'Python',
@@ -125,9 +126,20 @@ export class HomePage implements OnInit {
   
   
 
-  constructor(private modalController: ModalController) {}
+  constructor(
+    private modalController: ModalController,
+    private exampleService: ExampleService,
+    ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getLanguages();
+  }
+
+  private getLanguages() {
+    this.exampleService.getLanguages().subscribe(data => {
+      this.langs = data.languages;
+    })
+  }
 
   async presentModal(language: any) {
     const modal = await this.modalController.create({

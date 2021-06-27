@@ -13,9 +13,9 @@
             <ion-card-title>{{lang.name}}</ion-card-title>
           </ion-card-header>
           <ion-card-content>
-            <img [src]="lang.img" alt="">
+            <img [src]="lang.Pic_Url" alt="">
           </ion-card-content>
-          <ion-card-subtitle>{{lang.desc}}</ion-card-subtitle>
+          <ion-card-subtitle>{{lang.Desc?.substr(0, 100) + '...'}}</ion-card-subtitle>
         </ion-card>
       </ion-col>
     </ion-row>
