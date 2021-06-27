@@ -36,8 +36,8 @@
             <img [src]="team.img" alt="">
           </ion-card-content>
           <ion-card-subtitle>{{team.desc}}</ion-card-subtitle>
-          <ion-card-subtitle>
-            <a [href]="team.gh" target="_blank" rel="noopener noreferrer"><ion-icon name="logo-github"></ion-icon> </a>
+          <ion-card-subtitle id="social">
+            <a [href]="team.gh" target="_blank" rel="noopener noreferrer"><ion-icon name="logo-github" aria-setsize=""></ion-icon> </a>
             <a [href]="team.li" target="_blank" rel="noopener noreferrer"><ion-icon name="logo-linkedin"></ion-icon></a>
           </ion-card-subtitle>
         </ion-card>

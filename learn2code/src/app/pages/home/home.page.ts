@@ -109,7 +109,7 @@ export class HomePage implements OnInit {
   public teams = [
     {
       id: 1,
-      name: 'Carlos Moisés Chávez Jiménez',
+      name: 'Moisés Chávez',
       img: 'https://wfmh.global/wp-content/uploads/2018/01/wfmh-logo.png',
       desc: 'Computer Technologies student at Tecnólogio de Monterrey. He enjoys [tech-related]. In his free time, he likes to [non-tech related]. ',
       gh: 'https://github.com/NoMolestar',
@@ -120,18 +120,24 @@ export class HomePage implements OnInit {
       name: 'Charbel Breydy Torres',
       img: 'https://wfmh.global/wp-content/uploads/2018/01/wfmh-logo.png',
       desc: 'Robotics student at Universidad de las Américas Puebla. ',
+      gh: 'https://github.com/buly1601',
+      li: '',
     },
     {
       id: 3,
       name: 'Eduardo Venegas',
       img: 'https://wfmh.global/wp-content/uploads/2018/01/wfmh-logo.png',
       desc: 'Student at Tecnólogio de Monterrey.',
+      gh: 'https://github.com/LaloVene',
+      li: '',
     },
     {
       id: 4,
-      name: 'Ayana N',
+      name: 'Ayana Nithey',
       img: 'https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg',
       desc: 'Student at McMaster University.',
+      gh: 'https://github.com/nanonite9',
+      li: 'https://linkedin.com/in/ayana-n',
     },
   ];
   public footers = [
