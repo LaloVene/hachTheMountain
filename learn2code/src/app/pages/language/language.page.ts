@@ -41,8 +41,8 @@ export class LanguagePage implements OnInit {
     private route: ActivatedRoute
   ) {
     this.language_id = parseInt(this.route.snapshot.paramMap.get('id'));
-    this.getTopics(this.language_id);
-    this.getLanguages();
+    // this.getTopics(this.language_id);
+    // this.getLanguages();
   }
 
   ngOnInit() {}
