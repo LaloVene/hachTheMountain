@@ -134,6 +134,14 @@ export class HomePage implements OnInit {
       desc: 'Student at McMaster University.',
     },
   ];
+  public footers = [
+    {
+      id: 1,
+      htm: 'https://hackthemountain.tech/',
+    },
+  ];
+  
+  
 
   constructor(private modalController: ModalController) {}
 
@@ -150,3 +158,4 @@ export class HomePage implements OnInit {
     return await modal.present();
   }
 }
+

@@ -49,9 +49,10 @@
 
 
 
-  <ion-footer>
-    <ion-toolbar>
-      <ion-title>Footer</ion-title>
+  <ion-footer class="footer">
+    <ion-toolbar *ngFor="let footer of footers">
+      <ion-title>Made with 💜 by Lalo, Charbel, Moisés, and Ayana </ion-title>
+      <ion-subtitle>For <a [href]="footer.htm" target="_blank" rel="noopener noreferrer">Hack the Mountains 2.0</a></ion-subtitle>
     </ion-toolbar>
   </ion-footer>
 </ion-content>
