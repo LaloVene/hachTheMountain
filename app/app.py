@@ -112,7 +112,7 @@ def resources():
         try:
             difficulty = str(body['difficulty'])
             title = str(body['title'])
-            idTopic = str(body['idTopic'])
+            idTopic = int(body['idTopic'])
             db = get_db()
             error = None
         except:
@@ -133,6 +133,13 @@ def resources():
                 (difficulty,title,idTopic)
             )
             db.commit()
+            #!debug
+            print(
+                db.execute(
+                    "SELECT * FROM rec"
+                )
+            )
+
             return f"The resource {title} created successfully"
         else:
             return error, 418
@@ -150,7 +157,7 @@ def url():
         try:
             name = str(body['name'])
             url = str(body['url'])
-            idRec = str(body['idRec'])
+            idRec = int(body['idRec'])
             db = get_db()
             error = None
         except:
@@ -189,7 +196,7 @@ def videos():
         try:
             name = str(body['name'])
             url = str(body['url'])
-            idRec = str(body['idRec'])
+            idRec = int(body['idRec'])
             db = get_db()
             error = None
         except:
@@ -223,8 +230,8 @@ def visited():
             return jsonify({"status": "bad", "message": "no information provided"}), 401
 
         try:
-            idRec = str(body['idRec'])
-            idTopic = str(body['idTopic'])
+            idRec = int(body['idRec'])
+            idTopic = int(body['idTopic'])
             username = str(body['username'])
             db = get_db()
             error = None
@@ -384,27 +391,14 @@ def get_lang():
     languages = []
     for result in results:
         languages.append({
-            '_id': str(result[0]),
+            'IdLanguages': int(result[0]),
             'name': str(result[1]),
-            'active': bool(result[2]),
-            'area': str(result[3])
+            'Pic_Url': str(result[2]),
+            'Desc': str(result[3]),
+            'Example': str(result[4])
         })
 
     return jsonify({"status": "ok", "languages": languages}), 200
-
-    if info != None:
-        name = info["Name"]
-        pic_url = info["Pic_Url"]
-        desc = info["Desc"]
-        example = info["Example"]
-
-        return jsonify({
-            "status": "ok", "name": name, "pic_url" : pic_url, "desc" : desc,
-            "example" : example, "id" : this_id
-        }), 200
-    
-    else:
-        return jsonify({"status": "bad", "message": "not implemented"}), 400
 
 @app.route("/get-topics", methods=["GET", "POST"])
 def get_topic():
@@ -424,26 +418,64 @@ def get_topic():
         return jsonify({"status": "bad", "message": "missing data"}), 400
 
     dab = db.get_db()
-    info = dab.execute(
+    results = dab.execute(
         # ? NAME, PIC_URL, DESC, EXAMPLE
-        "SELECT * FROM languages WHERE IdLanguages = ?", (this_id,)
+        "SELECT * FROM topic WHERE IdLanguages = ?", (this_id,)
     ).fetchall()
 
-    if info != None:
-        name = info["Name"]
-        pic_url = info["Pic_Url"]
-        id_lang = info["Id_Languages"]
+    topics = []
+    for result in results:
+        languages.append({
+            'Id_Topic': int(result[0]),
+            'name': str(result[1]),
+            'Pic_URL': str(result[2]),
+            'Id_Languages': int(result[3])
+        })
 
-        return jsonify({
-            "status": "ok", "name": name, "pic_url" : pic_url, "id_language" : id_lang,
-            "id" : this_id
-        }), 200
-    
-    else:
-        return jsonify({"status": "bad", "message": "not implemented"}), 400
+    return jsonify({"status": "ok", "topics": topics}), 200
 
 @app.route("/get-resources", methods=["GET","POST"])
 def get_resource():
+    """
+    !CHECKED!
+    Function that gets all of the resources available for the topic of the language.
+    """
+    try:
+        body = request.get_json()
+    except:
+        return jsonify({"status": "bad", "message": "no information provided"}), 401
+
+    try:
+        this_id = int(body["Id_Rec"])
+        status = 1
+    except:
+        return jsonify({"status": "bad", "message": "missing data"}), 400
+
+    dab = db.get_db()
+    results = dab.execute(
+        # ? NAME, PIC_URL, DESC, EXAMPLE
+        "SELECT * FROM videos WHERE Id_Rec = ?", (this_id,)
+    ).fetchall()
+
+    if not results:
+        results = dab.execute(
+        # ? NAME, PIC_URL, DESC, EXAMPLE
+        "SELECT * FROM url WHERE Id_Rec = ?", (this_id,)
+    ).fetchall()
+
+    resources = []
+    for result in results:
+        resources.append({
+            'id_resources': int(result[0]),
+            'Name': str(result[1]),
+            'URL': str(result[2]),
+            'IdRec': int(result[3])
+        })
+
+    return jsonify({"status": "ok", "resources": resources}), 200
+
+@app.route("/get-resources-by-level", methods=["GET","POST"])
+def get_resources_by_level():
     """
     !CHECKED!
     Function that gets all of the resources available for the topic of the language.
@@ -460,27 +492,21 @@ def get_resource():
         return jsonify({"status": "bad", "message": "missing data"}), 400
 
     dab = db.get_db()
-    info = dab.execute(
+    results = dab.execute(
         # ? NAME, PIC_URL, DESC, EXAMPLE
-        "SELECT * FROM languages WHERE IdRec = ?", (this_id,)
+        "SELECT * FROM rec WHERE IdRec = ?", (this_id,)
     ).fetchall()
 
-    if info != None:
-        if info["IdVideos"]:
-            idt = info["IdVideos"]
-        else:
-            idt = info["IdUrl"]
-        name = info["Name"]
-        url = info["Url"]
-        
+    resources = []
+    for result in results:
+        resources.append({
+            'IdRec': int(result[0]),
+            'Difficulty': str(result[1]),
+            'Title': str(result[2]),
+            'Id_Topic': int(result[3])
+        })
 
-        return jsonify({
-            "status": "ok", "name": name, "url" : url, "Id_Source" : idt,
-            "id" : this_id
-        }), 200
-    
-    else:
-        return jsonify({"status": "bad", "message": "not implemented"}), 400
+    return jsonify({"status": "ok", "resources-by-level": resources}), 200
 
 # ! health directory !
 @app.route("/health")
