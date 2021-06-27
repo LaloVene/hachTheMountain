@@ -1,8 +1,12 @@
 ## How to run
 `npm install -g @ionic/cli`
+
 clone the repository
+
 `npm i`
+
 `install requirements.txt`
+
 `ionic serve`
 
 
