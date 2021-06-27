@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "2071de99-b451-4cfd-abeb-c96ebf4ed445",
+		"_postman_id": "d9bf07b7-d678-4c5e-b0c6-2ec3e948c928",
 		"name": "Everyonecanprogram",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -97,6 +97,35 @@
 			"name": "Topic",
 			"item": [
 				{
+					"name": "Get Topic",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"IdTopic\" : \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{origin}}/get-topic",
+							"host": [
+								"{{origin}}"
+							],
+							"path": [
+								"get-topic"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Localhost Topic",
 					"request": {
 						"method": "POST",
@@ -169,6 +198,35 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get Language Info",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"IdLanguages\" : \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{origin}}/get-language",
+							"host": [
+								"{{origin}}"
+							],
+							"path": [
+								"get-language"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -196,6 +254,35 @@
 							],
 							"path": [
 								"resources"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Vide/Url",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"IdRec\" : \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{origin}}/get-resources",
+							"host": [
+								"{{origin}}"
+							],
+							"path": [
+								"get-resources"
 							]
 						}
 					},
@@ -306,7 +393,7 @@
 	"variable": [
 		{
 			"key": "origin",
-			"value": "http://127.0.0.1:5000"
+			"value": "https://hack-the-mountain.herokuapp.com/"
 		}
 	]
 }
