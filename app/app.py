@@ -366,28 +366,29 @@ def log_in():
     else:
         return ""
 
-@app.route("/get-language", methods=["GET", "POST"])
+@app.route("/get-languages", methods=["GET", "POST"])
 def get_lang():
     """
     !CHECKED!
     Function that takes all of the languages and returns if existing
     """
-    try:
-        body = request.get_json()
-    except:
-        return jsonify({"status": "bad", "message": "no information provided"}), 401
-
-    try:
-        this_id = int(body["IdLanguages"])
-        status = 1
-    except:
-        return jsonify({"status": "bad", "message": "missing data"}), 400
 
     dab = db.get_db()
-    info = dab.execute(
+    results = dab.execute(
         # ? NAME, PIC_URL, DESC, EXAMPLE
-        "SELECT * FROM languages WHERE IdLanguages = ?", (this_id,)
-    ).fetchone()
+        "SELECT * FROM languages"
+    ).fetchall()
+
+    languages = []
+    for result in results:
+        languages.append({
+            '_id': str(result[0]),
+            'name': str(result[1]),
+            'active': bool(result[2]),
+            'area': str(result[3])
+        })
+
+    return jsonify({"status": "ok", "languages": languages}), 200
 
     if info != None:
         name = info["Name"]
@@ -403,7 +404,7 @@ def get_lang():
     else:
         return jsonify({"status": "bad", "message": "not implemented"}), 400
 
-@app.route("/get-topic", methods=["GET", "POST"])
+@app.route("/get-topics", methods=["GET", "POST"])
 def get_topic():
     """
     !CHECKED!
@@ -424,7 +425,7 @@ def get_topic():
     info = dab.execute(
         # ? NAME, PIC_URL, DESC, EXAMPLE
         "SELECT * FROM languages WHERE IdLanguages = ?", (this_id,)
-    ).fetchone()
+    ).fetchall()
 
     if info != None:
         name = info["Name"]
@@ -459,8 +460,8 @@ def get_resource():
     dab = db.get_db()
     info = dab.execute(
         # ? NAME, PIC_URL, DESC, EXAMPLE
-        "SELECT * FROM languages WHERE IdLanguages = ?", (this_id,)
-    ).fetchone()
+        "SELECT * FROM languages WHERE IdRec = ?", (this_id,)
+    ).fetchall()
 
     if info != None:
         if info["IdVideos"]:
