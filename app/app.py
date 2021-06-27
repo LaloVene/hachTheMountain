@@ -413,14 +413,13 @@ def get_topic():
 
     try:
         this_id = int(body["idTopic"])
-        status = 1
     except:
         return jsonify({"status": "bad", "message": "missing data"}), 400
 
     dab = db.get_db()
     results = dab.execute(
         # ? NAME, PIC_URL, DESC, EXAMPLE
-        "SELECT * FROM topic WHERE IdLanguages = ?", (this_id,)
+        "SELECT * FROM topic WHERE Id_Languages = ?", (this_id,)
     ).fetchall()
 
     topics = []
