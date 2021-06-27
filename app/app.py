@@ -267,6 +267,8 @@ def set_language():
         return jsonify({"status": "bad", "message": "missing data"}), 400
     return jsonify({"status": "ok", "message":"", "name": name}), 200
 
+# ?HCharbel
+
 # directories
 @app.route("/sign-in", methods=["GET","POST"])
 def sign_in():
@@ -289,7 +291,7 @@ def sign_in():
             username = str(body['username'])
         except:
             return jsonify({"status": "bad", "message": "missing data"}), 400
-        db = db.get_db()
+        dab = db.get_db()
         error = None
 
         # checks for any errors
@@ -304,7 +306,7 @@ def sign_in():
 
         # insert into database
         if error == None:
-            db.execute(
+            dab.execute(
                 "INSERT INTO user (Username,Password) VALUES (?,?)",
                 (username, generate_password_hash(password),))
             db.commit()
@@ -327,7 +329,7 @@ def log_in():
     if request.method == "POST":
 
         # gets the username and password posted
-        db = db.get_db()
+        dab = db.get_db()
         error = None
         try:
             body = request.get_json()
@@ -342,7 +344,7 @@ def log_in():
             return jsonify({"status": "bad", "message": "missing data"}), 400
 
         # look for the user in the db
-        user_ = db.execute(
+        user_ = dab.execute(
             "SELECT * FROM user WHERE Username = ?", (username,)
         ).fetchone()
         
@@ -376,19 +378,30 @@ def get_lang():
         return jsonify({"status": "bad", "message": "no information provided"}), 401
 
     try:
-        id_lang = int(body["IdLanguages"])
-        name = str(body['Name'])
-        pic_url = str(body['Pic_url'])
-        desc = str(body['Desc'])
-        example = str(body['Example'])
+        this_id = int(body["IdLanguages"])
         status = 1
     except:
         return jsonify({"status": "bad", "message": "missing data"}), 400
 
-    return jsonify({
-        "status": "ok", "name": name, "pic_url" : pic_url, "desc" : desc,
-        "example" : example, "id" : id_lang
-    }), 200
+    dab = db.get_db()
+    info = dab.execute(
+        # ? NAME, PIC_URL, DESC, EXAMPLE
+        "SELECT * FROM languages WHERE IdLanguages = ?", (this_id,)
+    ).fetchone()
+
+    if info != None:
+        name = info["Name"]
+        pic_url = info["Pic_Url"]
+        desc = info["Desc"]
+        example = info["Example"]
+
+        return jsonify({
+            "status": "ok", "name": name, "pic_url" : pic_url, "desc" : desc,
+            "example" : example, "id" : this_id
+        }), 200
+    
+    else:
+        return jsonify({"status": "bad", "message": "not implemented"}), 400
 
 @app.route("/get-topic", methods=["GET", "POST"])
 def get_topic():
@@ -402,18 +415,29 @@ def get_topic():
         return jsonify({"status": "bad", "message": "no information provided"}), 401
 
     try:
-        id_topic = int(body["IdTopic"])
-        name = str(body['Name'])
-        pic_url = str(body['Pic_url'])
-        id_lang = str(body['Id_Languages'])
+        this_id = int(body["idTopic"])
         status = 1
     except:
         return jsonify({"status": "bad", "message": "missing data"}), 400
 
-    return jsonify({
-        "status": "ok", "name": name, "pic_url" : pic_url,
-         "id" : id_topic, "id_lang" : id_lang
-    }), 200
+    dab = db.get_db()
+    info = dab.execute(
+        # ? NAME, PIC_URL, DESC, EXAMPLE
+        "SELECT * FROM languages WHERE IdLanguages = ?", (this_id,)
+    ).fetchone()
+
+    if info != None:
+        name = info["Name"]
+        pic_url = info["Pic_Url"]
+        id_lang = info["Id_Languages"]
+
+        return jsonify({
+            "status": "ok", "name": name, "pic_url" : pic_url, "id_language" : id_lang,
+            "id" : this_id
+        }), 200
+    
+    else:
+        return jsonify({"status": "bad", "message": "not implemented"}), 400
 
 @app.route("/get-resources", methods=["GET","POST"])
 def get_resource():
@@ -427,21 +451,33 @@ def get_resource():
         return jsonify({"status": "bad", "message": "no information provided"}), 401
 
     try:
-        name = str(body['Name'])
-        url = str(body['Url'])
-        id_topic = int(body["Id_Rec"])
+        this_id = int(body["IdRec"])
         status = 1
     except:
         return jsonify({"status": "bad", "message": "missing data"}), 400
 
-    if body["IdUrl"]:
-        id_resource = int(body["IdUrl"])
+    dab = db.get_db()
+    info = dab.execute(
+        # ? NAME, PIC_URL, DESC, EXAMPLE
+        "SELECT * FROM languages WHERE IdLanguages = ?", (this_id,)
+    ).fetchone()
+
+    if info != None:
+        if info["IdVideos"]:
+            idt = info["IdVideos"]
+        else:
+            idt = info["IdUrl"]
+        name = info["Name"]
+        url = info["Url"]
+        
+
+        return jsonify({
+            "status": "ok", "name": name, "url" : url, "Id_Source" : idt,
+            "id" : this_id
+        }), 200
+    
     else:
-        id_resource = int(body["IdVideos"])
-    return jsonify({
-        "status": "ok", "name": name, "Url" : url,
-         "id_topic_resource" : id_topic, "id_resource" : id_resource
-    }), 200
+        return jsonify({"status": "bad", "message": "not implemented"}), 400
 
 # ! health directory !
 @app.route("/health")
